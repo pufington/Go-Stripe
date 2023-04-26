@@ -1,6 +1,6 @@
 development:
   dialect: mysql
-  database: widgets
+  database: shop
   user: root
   password: ganesh
   host: 127.0.0.1

@@ -1,8 +1,10 @@
 package cards
 
 import (
-	"github.com/stripe/stripe-go/v72/customer"
+	"log"
+
 	"github.com/stripe/stripe-go/v72"
+	"github.com/stripe/stripe-go/v72/customer"
 	"github.com/stripe/stripe-go/v72/paymentintent"
 	"github.com/stripe/stripe-go/v72/paymentmethod"
 	"github.com/stripe/stripe-go/v72/sub"
@@ -96,6 +98,17 @@ func (c *Card) SubscribeToPlan(cust *stripe.Customer, plan, email, last4, cardTy
 	return subscription, nil
 }
 
+func (c *Card)PaymentConfirmation(pi string){
+	
+	params := &stripe.PaymentIntentConfirmParams{
+		ReturnURL: stripe.String(""),
+	  };
+	   _,err := paymentintent.Confirm("{{pi}}", params);
+	   if err != nil{
+		log.Fatal(err)
+		return 
+	   }
+}
 // CreateCustomer creates a stripe customer
 func (c *Card) CreateCustomer(pm, email string) (*stripe.Customer, string, error) {
 	stripe.Key = c.Secret

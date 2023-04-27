@@ -86,6 +86,7 @@ func (c *Card) SubscribeToPlan(cust *stripe.Customer, plan, email, last4, cardTy
 	params := &stripe.SubscriptionParams{
 		Customer: stripe.String(stripeCustomerID),
 		Items: items,
+		PaymentBehavior: stripe.String("default_incomplete"),
 	}
 
 	params.AddMetadata("last_four", last4)
